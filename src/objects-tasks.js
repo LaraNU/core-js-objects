@@ -33,8 +33,20 @@ function shallowCopy(obj) {
  *    mergeObjects([{a: 1, b: 2}, {b: 3, c: 5}]) => {a: 1, b: 5, c: 5}
  *    mergeObjects([]) => {}
  */
-function mergeObjects(/* objects */) {
-  throw new Error('Not implemented');
+function mergeObjects(objects) {
+  const resultObj = {};
+  objects.forEach((obj) => {
+    Object.entries(obj).forEach((pair) => {
+      const key = pair[0];
+      const value = pair[1];
+      if (Object.hasOwn(resultObj, key)) {
+        resultObj[key] += value;
+      } else {
+        resultObj[key] = value;
+      }
+    });
+  });
+  return resultObj;
 }
 
 /**
@@ -157,8 +169,19 @@ function makeWord(lettersObject) {
  *    sellTickets([25, 25, 50]) => true
  *    sellTickets([25, 100]) => false (The seller does not have enough money to give change.)
  */
-function sellTickets(/* queue */) {
-  throw new Error('Not implemented');
+function sellTickets(queue) {
+  if (queue.length === 0) {
+    return true;
+  }
+  let change = 0;
+  for (let i = 0; i < queue.length; i += 1) {
+    if (queue[i] === 25) {
+      change += queue[i];
+    } else if (queue[i] > 25) {
+      change -= 25;
+    }
+  }
+  return change > 0;
 }
 
 /**
